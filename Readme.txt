@@ -1,4 +1,8 @@
-Copied from https://github.com/pepek1910/TemplateVSCCpp.git
+Base Machine Project
+-with Initialization and Spid architecture
+
+Configuration
+Copied base project from https://github.com/pepek1910/TemplateVSCCpp.git
 And it works fine!
 
 If Compiler not installed:
