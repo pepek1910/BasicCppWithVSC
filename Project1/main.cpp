@@ -4,8 +4,8 @@
 int main()
 {
     Machine machine{};
-    machine.machineInit();
-    machine.machineSpin();
-    
+    while(true){
+        machine.machineSpin();
+    }
     return 0;
 }
