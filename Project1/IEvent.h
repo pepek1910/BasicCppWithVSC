@@ -3,34 +3,33 @@
 
 enum struct EEventType
 {
-  //BUTTON_PRESSED= 0 ,
-  //DISPLAY_UPDATE,
   SPECIFIC_ACTION =0,
   ALARM,
-  //SENSORS,
-  //LIMIT_SWITCH_CNT,
   SCHEDULER,
-  //INC_ENCODER_UPDATE,
-  //CALIBRATION,
-  //MENU,
-  //MOVEMENT_COMMAND,
   EVENTS_COUNT
 };
 
-class SEvent
+class IEvent
 {
 public:
-  SEvent(EEventType p_type = EEventType::EVENTS_COUNT, int16_t p_param = 0, int16_t p_param2 = 0)
+  IEvent(EEventType p_type = def_type, int16_t p_param = def_param, int16_t p_param2 = def_param2)
   {
     m_type = p_type;
     //m_timestamp = g_current_millis;
     m_param = p_param;
     m_param2 = p_param2;
   }
+  ~IEvent()=default;
   EEventType getEventType(){ return m_type;};
+  void Spin();
 
   EEventType m_type;
   unsigned long m_timestamp;
   int16_t m_param;
   int16_t m_param2;
+  
+private:
+  static constexpr EEventType def_type = EEventType::EVENTS_COUNT;
+  static constexpr int16_t def_param = 0;
+  static constexpr int16_t def_param2 = 0;
 };

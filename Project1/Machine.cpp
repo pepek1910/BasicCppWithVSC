@@ -62,7 +62,7 @@ void Machine::machineSpin()
     else if (m_machine_state == EMachineState::PRE_RUNNING)
     {
         std::cout<<"PRE RUNNING"<<std::endl;
-        m_events.PushEvent(SEvent(EEventType::SPECIFIC_ACTION, 1));
+        m_events.PushEvent(IEvent(EEventType::SPECIFIC_ACTION, 1));
         MachineSetState(EMachineState::RUNNING);
     }
     else if (m_machine_state == EMachineState::RUNNING)
@@ -74,13 +74,9 @@ void Machine::machineSpin()
         std::cout<<"RUNNING"<<std::endl;
         std::cout<<"Event Type"<<std::endl;
         // auto v_type =m_events.PopEvent().m_type;
-        // std::cout<<int(v_type);
-        
-        if (m_events.PeekCurrentEventType() != EEventType::SPECIFIC_ACTION) //TODO EventsController should check and spin event wchich is peekcurrent (some for ?)
-            return;
-        m_events.PopEvent();
-        specificAction.Spin();//TODO specificAction should be inhreited from Event and overload spin function (event should have spin() function)
-    }
+        // std::cout<<int(v_type);   
+        m_events.PeekCurrentEventType();
+   }
 }
 
 void Machine::MachineSetState(EMachineState p_state)

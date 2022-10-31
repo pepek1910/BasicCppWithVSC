@@ -1,13 +1,5 @@
 #include "SpecificAction.h"
 
-SpecificAction::SpecificAction(void)
-{
-    // DEBUG_FUNCTION_START
-    m_specific_action_state = ESpecificActionState::IDLE;
-    // DEBUG_FUNCTION_END
-}
-
-
 void SpecificAction::Spin(void)
 {
   //SpecificActionSpinInner();
