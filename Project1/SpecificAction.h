@@ -19,10 +19,11 @@ public:
     };
   ~SpecificAction() = default;
 
-  void Spin();
+  virtual void Spin() override;
   void Start();
   void Stop();
   ESpecificActionState GetState();
+  virtual void print(std::ostream& os) const override;
 
   ESpecificActionState m_specific_action_state;
   uint8_t m_specific_action_finished;

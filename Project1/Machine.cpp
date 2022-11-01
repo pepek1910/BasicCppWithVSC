@@ -62,7 +62,7 @@ void Machine::machineSpin()
     else if (m_machine_state == EMachineState::PRE_RUNNING)
     {
         std::cout<<"PRE RUNNING"<<std::endl;
-        m_events.PushEvent(IEvent(EEventType::SPECIFIC_ACTION, 1));
+        //m_events.eventsTest.push_back(m_events.eventsTest.specificEvent);
         MachineSetState(EMachineState::RUNNING);
     }
     else if (m_machine_state == EMachineState::RUNNING)

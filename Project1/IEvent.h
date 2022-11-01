@@ -11,6 +11,7 @@ enum struct EEventType
 
 class IEvent
 {
+  friend std::ostream &operator<<(std::ostream &os, const IEvent &obj);
 public:
   IEvent(EEventType p_type = def_type, int16_t p_param = def_param, int16_t p_param2 = def_param2)
   {
@@ -21,7 +22,8 @@ public:
   }
   ~IEvent()=default;
   EEventType getEventType(){ return m_type;};
-  void Spin();
+  virtual void Spin()=0;
+  virtual void print(std::ostream& os) const = 0;
 
   EEventType m_type;
   unsigned long m_timestamp;

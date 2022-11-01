@@ -55,6 +55,7 @@ void SpecificAction::Start()
   //DEBUG_FUNCTION_START
   m_temp_variable = 0;
   m_specific_action_state = ESpecificActionState::INITIALIZATION;
+  std::cout<<"Start from Specific Action Event"<<std::endl;
   //DEBUG_FUNCTION_END
 }
 
@@ -65,4 +66,10 @@ void SpecificAction::Stop()
   m_temp_variable = 0;
   m_specific_action_state = ESpecificActionState::IDLE;
   //DEBUG_FUNCTION_END
+}
+
+void SpecificAction::print(std::ostream& os) const {
+    os.precision(2);
+    os << std::fixed;
+    os << "[SpecificAction-> type:" << int(EEventType::SPECIFIC_ACTION) << "param: " << m_param << "]";
 }
