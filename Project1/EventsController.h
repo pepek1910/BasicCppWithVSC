@@ -11,7 +11,7 @@ class EventsController
 {
 public:
   EventsController();
-  ~EventsController()=default;
+  ~EventsController();
 
   void PushEvent(IEvent *p_event);
   EEventType PeekCurrentEventType(void);

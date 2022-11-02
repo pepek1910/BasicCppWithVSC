@@ -23,6 +23,12 @@ EventsController::EventsController()
   #endif
 }
 
+EventsController::~EventsController(){
+  delete specificEvent;
+  delete alarmEvent;
+  delete schedulerEvent;
+}
+
 EEventType EventsController::PeekCurrentEventType(void)
 {
   if (eventsTest.size() == 0)
