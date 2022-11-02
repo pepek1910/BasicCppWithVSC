@@ -3,6 +3,7 @@
 #include "IEvent.h"
 #include "SpecificAction.h"
 #include "AlarmEvent.h"
+#include "SchedulerEvent.h"
 #include "Configuration.h"
 #include <vector>
 
@@ -19,6 +20,7 @@ public:
   std::vector <IEvent*> eventsTest;
   IEvent* specificEvent = new SpecificAction{};
   IEvent* alarmEvent = new AlarmEvent{};
+  IEvent* schedulerEvent = new SchedulerEvent{};
 
 private:
   std::string GetEventName(EEventType p_event_type);

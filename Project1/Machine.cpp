@@ -67,14 +67,7 @@ void Machine::machineSpin()
     }
     else if (m_machine_state == EMachineState::RUNNING)
     {
-        //MenuSpin();
-        //UserParametersSpin();
-        //AlarmsSpin();
-        //SchedulerSpin();
         std::cout<<"RUNNING"<<std::endl;
-        std::cout<<"Event Type"<<std::endl;
-        // auto v_type =m_events.PopEvent().m_type;
-        // std::cout<<int(v_type);   
         m_events.PeekCurrentEventType();
    }
 }

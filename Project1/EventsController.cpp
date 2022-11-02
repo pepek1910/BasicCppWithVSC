@@ -10,6 +10,7 @@ EventsController::EventsController()
   //eventsTest.push_back(specificEvent);
   PushEvent(specificEvent);
   PushEvent(alarmEvent);
+  PushEvent(schedulerEvent);
   
   if (eventsTest.size() != (uint8_t)EEventType::EVENTS_COUNT)
   {
