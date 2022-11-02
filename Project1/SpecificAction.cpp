@@ -62,7 +62,6 @@ void SpecificAction::Start()
 void SpecificAction::Stop()
 {
   //DEBUG_FUNCTION_START
-  // TODO : zatrzymac silniki itp.
   m_temp_variable = 0;
   m_specific_action_state = ESpecificActionState::IDLE;
   //DEBUG_FUNCTION_END

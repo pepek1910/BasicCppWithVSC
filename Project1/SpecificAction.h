@@ -24,12 +24,11 @@ public:
   void Stop();
   ESpecificActionState GetState();
   virtual void print(std::ostream& os) const override;
-  
+
+private:
   ESpecificActionState m_specific_action_state;
   uint8_t m_specific_action_finished;
-  //static const char m_debug_module_name_with_decoration[] = "specificAction # ";
   uint8_t m_temp_variable = 0;
-  //EventsController eventsController{};
 
 private:
   static constexpr EEventType def_event_type = EEventType::SPECIFIC_ACTION;

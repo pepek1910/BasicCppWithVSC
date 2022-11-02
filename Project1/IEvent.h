@@ -21,10 +21,10 @@ public:
     m_param2 = p_param2;
   }
   ~IEvent()=default;
-  EEventType getEventType(){ return m_type;};
+
   virtual void Spin()=0;
   virtual void print(std::ostream& os) const = 0;
-
+  EEventType getEventType(){ return m_type;};
   EEventType m_type;
   unsigned long m_timestamp;
   int16_t m_param;

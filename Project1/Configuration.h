@@ -1,5 +1,3 @@
-
-
 // DEBUG
 //
 #define SERIAL_DEBUG_ON 1

@@ -16,6 +16,7 @@ public:
   void Stop();
   virtual void print(std::ostream& os) const override;
   
+private:
   uint8_t m_scheduler_finished;
   uint8_t m_temp_variable = 0;
 

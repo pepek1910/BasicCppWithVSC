@@ -3,7 +3,7 @@
 #include "EventsController.h"
 #include "SpecificAction.h"
 
-enum struct EMachineState : uint8_t
+enum struct EMachineState : uint8_t //TODO
 {
   UNKNOWN = 0,
   INITIALIZATION,
@@ -31,5 +31,4 @@ private:
     //uint32_t g_current_millis = millis();
     std::string m_machine_state_strings[(uint8_t)EMachineState::STATES_COUNT];
     EventsController m_events{};
-    //SpecificAction specificAction{};
 };

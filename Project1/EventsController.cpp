@@ -4,10 +4,9 @@
 EventsController::EventsController()
 {
   #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
-    std::cout<<"events # EventsInit() START"<<std::endl; //Serial.println("events # EventsInit() START");
+    std::cout<<"events # EventsController Initialization START"<<std::endl; //Serial.println("events # EventsInit() START");
   #endif
 
-  //eventsTest.push_back(specificEvent);
   PushEvent(specificEvent);
   PushEvent(alarmEvent);
   PushEvent(schedulerEvent);
@@ -15,12 +14,12 @@ EventsController::EventsController()
   if (eventsTest.size() != (uint8_t)EEventType::EVENTS_COUNT)
   {
     #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
-    std::cout<<"events # EventsInit() ERROR wrong number of m_event_type_strings!!!"<<std::endl; //Serial.println("events # EventsInit() ERROR wrong number of m_event_type_strings!!!");
+    std::cout<<"events # EventsController Initialization ERROR wrong number of m_event_type_strings!!!"<<std::endl; //Serial.println("events # EventsInit() ERROR wrong number of m_event_type_strings!!!");
     #endif
   }
   
   #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
-    std::cout<<"events # EventsInit() END"<<std::endl;//    Serial.println("events # EventsInit() END");
+    std::cout<<"events # EventsController Initialization END"<<std::endl;//    Serial.println("events # EventsInit() END");
   #endif
 }
 
@@ -55,7 +54,6 @@ void EventsController::PushEvent(IEvent *p_event)
 
 void EventsController::PopEvent(void)
 {
-  // /eventsTest.pop_back();
   DisplayMessage(eventsTest.at(0), "Poped event <-- ");
   eventsTest.erase(eventsTest.begin());
 }

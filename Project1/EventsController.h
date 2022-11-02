@@ -16,8 +16,9 @@ public:
   void PushEvent(IEvent *p_event);
   EEventType PeekCurrentEventType(void);
   void PopEvent(void);
-
   std::vector <IEvent*> eventsTest;
+  
+private:
   IEvent* specificEvent = new SpecificAction{};
   IEvent* alarmEvent = new AlarmEvent{};
   IEvent* schedulerEvent = new SchedulerEvent{};
