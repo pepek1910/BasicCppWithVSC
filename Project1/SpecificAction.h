@@ -15,7 +15,7 @@ class SpecificAction :public IEvent
 {
 public:
   SpecificAction()
-    :IEvent{EEventType::SPECIFIC_ACTION, 0,0}{
+    :IEvent{def_event_type, def_param, def_param2}{
     };
   ~SpecificAction() = default;
 
@@ -24,13 +24,15 @@ public:
   void Stop();
   ESpecificActionState GetState();
   virtual void print(std::ostream& os) const override;
-
+  
   ESpecificActionState m_specific_action_state;
   uint8_t m_specific_action_finished;
   //static const char m_debug_module_name_with_decoration[] = "specificAction # ";
   uint8_t m_temp_variable = 0;
   //EventsController eventsController{};
+
 private:
-  static constexpr uint8_t def_specific_action_finished = 0;
-  static constexpr ESpecificActionState def_specific_action_state = ESpecificActionState::IDLE;
+  static constexpr EEventType def_event_type = EEventType::SPECIFIC_ACTION;
+  static constexpr int16_t def_param = 0;
+  static constexpr int16_t def_param2 = 0;
 };

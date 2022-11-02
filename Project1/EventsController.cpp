@@ -9,7 +9,7 @@ EventsController::EventsController()
 
   //eventsTest.push_back(specificEvent);
   PushEvent(specificEvent);
-  //eventsTest.push_back(specificEvent);
+  PushEvent(alarmEvent);
   
   if (eventsTest.size() != (uint8_t)EEventType::EVENTS_COUNT)
   {
@@ -23,26 +23,6 @@ EventsController::EventsController()
   #endif
 }
 
-void EventsController::PushEvent(IEvent *p_event)
-{
-  #if MUTE_ALARMS == 1
-    if (p_event->m_type == EEventType::ALARM)
-    {
-      #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
-        std::cout<<("events # ");
-        std::cout<<p_event;
-        // std::cout<<(" ");
-        // std::cout<<(p_event->m_param);
-        std::cout<<(" muted")<<std::endl;
-      #endif
-      return;
-    }
-  #endif
-  eventsTest.push_back(p_event);
-  DisplayMessageFromPush();
-}
-
-
 EEventType EventsController::PeekCurrentEventType(void)
 {
   if (eventsTest.size() == 0)
@@ -55,40 +35,35 @@ EEventType EventsController::PeekCurrentEventType(void)
   return eventType;
 }
 
-void EventsController::PopEvent(void)
+void EventsController::PushEvent(IEvent *p_event)
 {
-  eventsTest.pop_back();
+  #if MUTE_ALARMS == 1
+    if (p_event->m_type == EEventType::ALARM)
+    {
+      #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
+        std::cout<<("events # ");
+        std::cout<<*p_event;
+        std::cout<<(" muted")<<std::endl;
+      #endif
+      return;
+    }
+  #endif
+  eventsTest.push_back(p_event);
+  DisplayMessage(p_event, "Pushed event --> ");
 }
 
-void EventsController::DisplayMessageFromPop(IEvent * v_event){
-  #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
-  //TODO Use std::ostream& operator<<(std::ostream& os, const I_Printable& obj){
-    std::cout<<"events # ";
-    std::cout<<"<-- ";
-    std::cout<<(int)v_event->m_type;
-    std::cout<<" ";
-    std::cout<<v_event->m_timestamp;
-    std::cout<<" ";
-    std::cout<<v_event->m_param;
-    std::cout<<" ";
-    std::cout<<v_event->m_param2;
-    std::cout<<" in queue: ";
-    std::cout<<eventsTest.size()+1<<std::endl;
-  #endif
-}
-void EventsController::DisplayMessageFromPush()
+void EventsController::PopEvent(void)
 {
+  // /eventsTest.pop_back();
+  DisplayMessage(eventsTest.at(0), "Poped event <-- ");
+  eventsTest.erase(eventsTest.begin());
+}
+
+void EventsController::DisplayMessage(IEvent * v_event, std::string message){
   #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
-    std::cout<<("events # ");
-    std::cout<<("--> ");
-    // std::cout<<(m_event_type_strings[(uint8_t)m_events_queue[m_events_in_queue - 1]->m_type]);
-    // std::cout<<(" ");
-    // std::cout<<(m_events_queue[m_events_in_queue - 1]->m_timestamp);
-    // std::cout<<(" ");
-    // std::cout<<(m_events_queue[m_events_in_queue - 1]->m_param);
-    // std::cout<<(" ");
-    // std::cout<<(m_events_queue[m_events_in_queue - 1]->m_param2);
-    std::cout<<(" in queue: ");
-    std::cout<<eventsTest.size()+1<<std::endl;
+    std::cout<<"events # "<<message;
+    std::cout<<*v_event;
+    std::cout<<" in queue: ";
+    std::cout<<eventsTest.size()<<std::endl;
   #endif
 }

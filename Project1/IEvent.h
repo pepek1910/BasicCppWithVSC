@@ -5,7 +5,7 @@ enum struct EEventType
 {
   SPECIFIC_ACTION =0,
   ALARM,
-  SCHEDULER,
+  //SCHEDULER,
   EVENTS_COUNT
 };
 

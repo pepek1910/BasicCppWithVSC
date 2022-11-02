@@ -22,7 +22,7 @@
 
 // ALARMY
 //
-#define MUTE_ALARMS 1   // obsluga zrealizowana w events.h w PushEvent()
+#define MUTE_ALARMS 0   // obsluga zrealizowana w events.h w PushEvent()
 
 //  START PRZYCISKIEM
 //
