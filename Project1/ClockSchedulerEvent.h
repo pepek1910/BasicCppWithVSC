@@ -6,13 +6,12 @@
 class ClockSchedulerEvent : public Scheduler, public IEvent
 {
 public:
-    ClockSchedulerEvent()
-    :Scheduler(v_schedule_cycle_time), IEvent{EEventType::SCHEDULER,0,0}{};
+    ClockSchedulerEvent(int p_schedule_cycle_time = def_schedule_cycle_time);
     ~ClockSchedulerEvent() = default;
 
     virtual void Spin() override;
     virtual void print(std::ostream& os) const override;
 
 private:
-    static constexpr int v_schedule_cycle_time = 100;
+    static constexpr int def_schedule_cycle_time = 1000;
 };

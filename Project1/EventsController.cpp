@@ -6,12 +6,6 @@ EventsController::EventsController()
   #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
     std::cout<<"events # EventsController Initialization START"<<std::endl; //Serial.println("events # EventsInit() START");
   #endif
-
-  PushEvent(&eventsTest , specificEvent);
-  PushEvent(&eventsTest , alarmEvent);
-  PushEvent(&eventsTest , schedulerEvent);
-
-  PushEvent(&scheduledAction , clockSchedulerEvent);
   
   if (eventsTest.size() != (uint8_t)EEventType::EVENTS_COUNT)
   {
@@ -26,9 +20,9 @@ EventsController::EventsController()
 }
 
 EventsController::~EventsController(){
-  delete specificEvent;
-  delete alarmEvent;
-  delete schedulerEvent;
+  // delete specificEvent;
+  // delete alarmEvent;
+  // delete schedulerEvent;
 }
 
 EEventType EventsController::PeekCurrentEventType(std::vector <IEvent*> *p_vector)
@@ -63,8 +57,8 @@ void EventsController::PushEvent(std::vector <IEvent*>* p_vector, IEvent *p_even
 void EventsController::PopEvent(std::vector <IEvent*> *p_vector)
 {
   DisplayMessage(p_vector, p_vector->at(0), "Poped event <-- ");
-  // auto refVect = p_vector->at(0);
-  // delete refVect;
+  auto refVect = p_vector->at(0);
+  delete refVect;
   p_vector->erase(p_vector->begin());
 }
 

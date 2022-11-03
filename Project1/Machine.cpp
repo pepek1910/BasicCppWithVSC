@@ -4,6 +4,10 @@ Machine::Machine(){
     #if SERIAL_DEBUG_ON && SERIAL_DEBUG_MACHINE
         std::cout<<"machine # MachineInit() START"<<std::endl;
     #endif
+    m_events.PushEvent(&m_events.eventsTest , specificEvent);
+    m_events.PushEvent(&m_events.eventsTest , alarmEvent);
+
+    m_events.PushEvent(&m_events.scheduledAction , clockSchedulerEvent);
 
     uint8_t i = 0;
     m_machine_state_strings[i++] = "UNKNOWN";
@@ -62,8 +66,8 @@ void Machine::machineSpin()
     else if (m_machine_state == EMachineState::PRE_RUNNING)
     {
         std::cout<<"PRE RUNNING"<<std::endl;
-        //IEvent* alarmEvent2 = new AlarmEvent{};
-        m_events.eventsTest.push_back(m_events.alarmEvent); //TODO need new function in EventController wchich choose events type and push it in local vector
+        IEvent* alarmEvent2 = new AlarmEvent{};   //TODO EventsController should be just controller not create and store Events/Scheduler. It should be higher in hierarchy
+        m_events.eventsTest.push_back(alarmEvent2);
         MachineSetState(EMachineState::RUNNING);
     }
     else if (m_machine_state == EMachineState::RUNNING)

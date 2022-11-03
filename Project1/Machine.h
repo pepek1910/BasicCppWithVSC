@@ -31,4 +31,8 @@ private:
     //uint32_t g_current_millis = millis();
     std::string m_machine_state_strings[(uint8_t)EMachineState::STATES_COUNT];
     EventsController m_events{};
+
+    IEvent* specificEvent = new SpecificAction{};
+    IEvent* alarmEvent = new AlarmEvent{};
+    IEvent* clockSchedulerEvent = new ClockSchedulerEvent{99};
 };

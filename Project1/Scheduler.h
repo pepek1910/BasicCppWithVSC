@@ -10,11 +10,12 @@ public:
     void printTime();
     std::time_t getTime();
     bool checkCycleTime();
+    int getCycleTime(){return m_schedule_cycle_time;};
   
 private:
     std::time_t m_time;
     int m_schedule_cycle_time;
 
 private:
-    static constexpr int def_schedule_cycle_time_in_seconds = 10; 
+    static constexpr int def_schedule_cycle_time_in_seconds = 1000; 
 };
