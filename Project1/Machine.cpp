@@ -62,13 +62,15 @@ void Machine::machineSpin()
     else if (m_machine_state == EMachineState::PRE_RUNNING)
     {
         std::cout<<"PRE RUNNING"<<std::endl;
-        //m_events.eventsTest.push_back(m_events.eventsTest.specificEvent);
+        //IEvent* alarmEvent2 = new AlarmEvent{};
+        m_events.eventsTest.push_back(m_events.alarmEvent); //TODO need new function in EventController wchich choose events type and push it in local vector
         MachineSetState(EMachineState::RUNNING);
     }
     else if (m_machine_state == EMachineState::RUNNING)
     {
         std::cout<<"RUNNING"<<std::endl;
-        m_events.PeekCurrentEventType();
+        m_events.PeekCurrentEventType(&m_events.eventsTest);
+        m_events.scheduledAction.at(0)->Spin();
    }
 }
 

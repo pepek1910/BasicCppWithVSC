@@ -20,16 +20,13 @@ public:
   void Start();
   void Stop();
   virtual void print(std::ostream& os) const override;
-  //m_timestamp = g_current_millis;
+
   void printTime();
   std::time_t getTime();
   
 private:
   std::time_t m_time;
   int m_schedule_cycle_time;
-  uint8_t m_scheduler_finished;
-  uint8_t m_temp_variable = 0;
-  
 
 private:
   static constexpr EEventType def_event_type = EEventType::SCHEDULER;

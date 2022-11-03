@@ -25,7 +25,6 @@ public:
   virtual void print(std::ostream& os) const = 0;
   EEventType getEventType(){ return m_type;};
   EEventType m_type;
-  unsigned long m_timestamp;
   int16_t m_param;
   int16_t m_param2;
   

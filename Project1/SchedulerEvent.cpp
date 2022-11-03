@@ -6,8 +6,11 @@ void SchedulerEvent::Spin(void)
     printTime();
     auto actTime = getTime();
     std::cout<< "Time from SchedulerEvent Spin :" <<actTime <<std::endl;
-    if (m_time + m_schedule_cycle_time > actTime){
+    std::cout<< "mtime :" <<m_time <<" mscheduleCycleTime: "<< m_schedule_cycle_time <<" actTime "<<actTime <<std::endl;
+
+    if (m_time + m_schedule_cycle_time < actTime){
         std::cout<< "Time To do Sth"<<std::endl;  
+        m_time = getTime();
     }
     else{
         std::cout<< "Still have :"<< m_schedule_cycle_time -(actTime - m_time) << "ms left"<<std::endl;
