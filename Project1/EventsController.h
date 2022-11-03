@@ -4,6 +4,7 @@
 #include "SpecificAction.h"
 #include "AlarmEvent.h"
 #include "ClockSchedulerEvent.h"
+#include "ReminderSchedluerEvent.h"
 #include "Configuration.h"
 #include <vector>
 
@@ -18,6 +19,7 @@ public:
   void PopEvent(std::vector <IEvent*> *p_vector);
   std::vector <IEvent*> eventsTest;
   std::vector <IEvent*> scheduledAction;
+  void checkScheduleToRun(std::vector <IEvent*> *p_vector);
 
 private:
   std::string GetEventName(EEventType p_event_type);

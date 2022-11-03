@@ -70,3 +70,10 @@ void EventsController::DisplayMessage(std::vector <IEvent*> *p_vector, IEvent * 
     std::cout<<p_vector->size()<<std::endl;
   #endif
 }
+
+void EventsController::checkScheduleToRun(std::vector <IEvent*> *p_vector)
+{
+    for(int i =0; i<p_vector->size(); i++){
+        p_vector->at(i)->Spin();
+    }
+}

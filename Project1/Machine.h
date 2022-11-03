@@ -20,19 +20,23 @@ class Machine
 {
 public:
   Machine();
-  ~Machine() = default;
+  ~Machine();
   void machineSpin();
 private:
    
-    void MachineSetState(EMachineState p_state);
-    EMachineState MachineGetState(void);
+  void MachineSetState(EMachineState p_state);
+  EMachineState MachineGetState(void);
 
-    EMachineState m_machine_state;
-    //uint32_t g_current_millis = millis();
-    std::string m_machine_state_strings[(uint8_t)EMachineState::STATES_COUNT];
-    EventsController m_events{};
+  EMachineState m_machine_state;
+  std::string m_machine_state_strings[(uint8_t)EMachineState::STATES_COUNT];
+  EventsController m_events{};
 
-    IEvent* specificEvent = new SpecificAction{};
-    IEvent* alarmEvent = new AlarmEvent{};
-    IEvent* clockSchedulerEvent = new ClockSchedulerEvent{99};
+  IEvent* specificEvent = new SpecificAction{};
+  IEvent* alarmEvent = new AlarmEvent{};
+  IEvent* clockSchedulerEvent = new ClockSchedulerEvent{clock_cycle_time};
+  IEvent* reminderSchedulerEvent = new ReminderSchedluerEvent{reminder_cycle_time};
+
+private:
+  static constexpr int16_t clock_cycle_time = 5;
+  static constexpr int16_t reminder_cycle_time = 9;
 };

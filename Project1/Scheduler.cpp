@@ -28,13 +28,13 @@ bool Scheduler::checkCycleTime()
 { 
     std::time_t v_act_time = getTime();
     auto time_passed = v_act_time - m_time;
-    #if 1//SERIAL_DEBUG_ON && SERIAL_DEBUG_MACHINE
+    #if (SERIAL_DEBUG_ON && SERIAL_DEBUG_MACHINE)
         std::cout<<"Scheduler time: " << m_time
             <<" cycle time: "<<  m_schedule_cycle_time
             << " act time: " <<v_act_time 
-            <<" time left: "<< m_schedule_cycle_time-time_passed
         <<std::endl;
     #endif
+    std::cout<<" time left: "<< m_schedule_cycle_time-time_passed<<std::endl;
     if (time_passed > m_schedule_cycle_time){
         //std::cout<< "Time To do Sth"<<std::endl;  
         m_time = getTime();

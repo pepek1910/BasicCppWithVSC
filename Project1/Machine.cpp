@@ -8,6 +8,7 @@ Machine::Machine(){
     m_events.PushEvent(&m_events.eventsTest , alarmEvent);
 
     m_events.PushEvent(&m_events.scheduledAction , clockSchedulerEvent);
+    m_events.PushEvent(&m_events.scheduledAction , reminderSchedulerEvent);
 
     uint8_t i = 0;
     m_machine_state_strings[i++] = "UNKNOWN";
@@ -35,6 +36,11 @@ Machine::Machine(){
     MachineSetState(EMachineState::INITIALIZATION_DONE);
 }
 
+Machine::~Machine(){
+    std::cout<<"Machine Deconstructor"<<std::endl;
+    delete clockSchedulerEvent;
+    delete reminderSchedulerEvent;
+}
 void Machine::machineSpin()
 {
     std::cout<< "Machine Spin"<<std::endl;
@@ -74,7 +80,7 @@ void Machine::machineSpin()
     {
         std::cout<<"RUNNING"<<std::endl;
         m_events.PeekCurrentEventType(&m_events.eventsTest);
-        m_events.scheduledAction.at(0)->Spin();
+        m_events.checkScheduleToRun(&m_events.scheduledAction);
    }
 }
 
