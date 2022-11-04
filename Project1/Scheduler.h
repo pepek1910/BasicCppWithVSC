@@ -10,7 +10,7 @@ public:
     void printTime();
     std::time_t getTime();
     bool checkCycleTime();
-    int getCycleTime(){return m_schedule_cycle_time;};
+    int getCycleTime() const {return m_schedule_cycle_time;};
   
 private:
     std::time_t m_time;

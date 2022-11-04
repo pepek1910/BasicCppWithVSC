@@ -17,10 +17,11 @@ public:
   void PushEvent(std::vector <IEvent*> *p_vector, IEvent *p_event);
   EEventType PeekCurrentEventType(std::vector <IEvent*> *p_vector);
   void PopEvent(std::vector <IEvent*> *p_vector);
-  std::vector <IEvent*> eventsTest;
-  std::vector <IEvent*> scheduledAction;
   void checkScheduleToRun(std::vector <IEvent*> *p_vector);
 
+  std::vector <IEvent*> eventsTest;
+  std::vector <IEvent*> scheduledAction;
+  
 private:
   std::string GetEventName(EEventType p_event_type);
   void DisplayMessage(std::vector <IEvent*> *p_vector, IEvent * v_event, std::string message);

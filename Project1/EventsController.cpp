@@ -73,7 +73,7 @@ void EventsController::DisplayMessage(std::vector <IEvent*> *p_vector, IEvent * 
 
 void EventsController::checkScheduleToRun(std::vector <IEvent*> *p_vector)
 {
-    for(int i =0; i<p_vector->size(); i++){
+    for(size_t i =0; i<p_vector->size(); i++){
         p_vector->at(i)->Spin();
     }
 }

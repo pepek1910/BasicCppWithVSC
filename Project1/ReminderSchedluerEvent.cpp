@@ -6,13 +6,13 @@ ReminderSchedluerEvent::ReminderSchedluerEvent(int m_schedule_cycle_time)
 
 void ReminderSchedluerEvent::Spin()
 {
-    std::cout << "[ReminderSchedluerEvent-> type:" << int(EEventType::SCHEDULER) << " cycle time: " << getCycleTime() << "]";
-
+    //std::cout << "[ReminderSchedluerEvent-> type:" << int(EEventType::SCHEDULER) << " cycle time: " << getCycleTime() << "]";
+    std::cout<< *this;
     if (checkCycleTime()){
         std::cout<< " -> Did You Forgot!" <<std::endl;
     }
     else {
-        std::cout<< " -> Just Wathing..." <<std::endl;
+        std::cout<< " -> Just Watching..." <<std::endl;
     }
 
 }
@@ -20,5 +20,5 @@ void ReminderSchedluerEvent::print(std::ostream& os) const
 {
     os.precision(2);
     os << std::fixed;
-    os << "[ReminderSchedluerEvent-> type:" << int(EEventType::SCHEDULER) << "cycle time: " << /*getCycleTime() <<*/ "]"<<std::endl;
+    os << "[ReminderSchedluerEvent-> type:" << int(EEventType::SCHEDULER) << " cycle time: " << getCycleTime() << "]"<<std::endl;
 }
