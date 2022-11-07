@@ -25,7 +25,7 @@ EventsController::~EventsController(){
   // delete schedulerEvent;
 }
 
-EEventType EventsController::PeekCurrentEventType(std::vector <IEvent*> *p_vector)
+EEventType EventsController::PeekCurrentEventType(std::vector <AsynchroTask*> *p_vector)
 {
   if (p_vector->size() == 0)
   {
@@ -37,7 +37,7 @@ EEventType EventsController::PeekCurrentEventType(std::vector <IEvent*> *p_vecto
   return eventType;
 }
 
-void EventsController::PushEvent(std::vector <IEvent*>* p_vector, IEvent *p_event)
+void EventsController::PushEvent(std::vector <AsynchroTask*>* p_vector, AsynchroTask *p_event)
 {
   #if MUTE_ALARMS == 1
     if (p_event->m_type == EEventType::ALARM)
@@ -54,7 +54,7 @@ void EventsController::PushEvent(std::vector <IEvent*>* p_vector, IEvent *p_even
   DisplayMessage(p_vector, p_event, "Pushed event --> ");
 }
 
-void EventsController::PopEvent(std::vector <IEvent*> *p_vector)
+void EventsController::PopEvent(std::vector <AsynchroTask*> *p_vector)
 {
   DisplayMessage(p_vector, p_vector->at(0), "Poped event <-- ");
   auto refVect = p_vector->at(0);
@@ -62,7 +62,7 @@ void EventsController::PopEvent(std::vector <IEvent*> *p_vector)
   p_vector->erase(p_vector->begin());
 }
 
-void EventsController::DisplayMessage(std::vector <IEvent*> *p_vector, IEvent * p_event, std::string message){
+void EventsController::DisplayMessage(std::vector <AsynchroTask*> *p_vector, AsynchroTask * p_event, std::string message){
   #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
     std::cout<<"events # "<<message;
     std::cout<<*p_event;
@@ -71,7 +71,7 @@ void EventsController::DisplayMessage(std::vector <IEvent*> *p_vector, IEvent * 
   #endif
 }
 
-void EventsController::checkScheduleToRun(std::vector <IEvent*> *p_vector)
+void EventsController::checkScheduleToRun(std::vector <AsynchroTask*> *p_vector)
 {
     for(size_t i =0; i<p_vector->size(); i++){
         p_vector->at(i)->Spin();

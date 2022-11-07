@@ -30,10 +30,10 @@ private:
   std::string m_machine_state_strings[(uint8_t)EMachineState::STATES_COUNT];
   EventsController m_events{};
   EMachineState m_machine_state;
-  IEvent* specificEvent = new SpecificAction{};
-  IEvent* alarmEvent = new AlarmEvent{};
-  IEvent* clockSchedulerEvent = new ClockSchedulerEvent{clock_cycle_time};
-  IEvent* reminderSchedulerEvent = new ReminderSchedluerEvent{reminder_cycle_time};
+  AsynchroTask* specificEvent = new SpecificAction{};
+  AsynchroTask* alarmEvent = new AlarmEvent{};
+  AsynchroTask* clockSchedulerEvent = new ClockSchedulerEvent{clock_cycle_time};
+  AsynchroTask* reminderSchedulerEvent = new ReminderSchedulerEvent{reminder_cycle_time};
 
 private:
   static constexpr int16_t clock_cycle_time = 5;

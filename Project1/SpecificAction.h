@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Configuration.h"
-#include "IEvent.h"
+#include "AsynchroTask.h"
 
 enum struct ESpecificActionState : uint8_t
 {
@@ -11,11 +11,11 @@ enum struct ESpecificActionState : uint8_t
   DONE
 };
 
-class SpecificAction :public IEvent
+class SpecificAction :public AsynchroTask
 {
 public:
   SpecificAction()
-    :IEvent{def_event_type, def_param, def_param2}{
+    :AsynchroTask{def_event_type, def_param, def_param2}{
     };
   ~SpecificAction() = default;
 
