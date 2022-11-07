@@ -1,7 +1,7 @@
 #include "ReminderSchedluerEvent.h"
 
 ReminderSchedluerEvent::ReminderSchedluerEvent(int m_schedule_cycle_time)
-    :Scheduler(m_schedule_cycle_time), IEvent(EEventType::SCHEDULER,0,0)
+    :SynchEvent(m_schedule_cycle_time), IEvent(EEventType::SCHEDULER,0,0)
 {}
 
 void ReminderSchedluerEvent::Spin()

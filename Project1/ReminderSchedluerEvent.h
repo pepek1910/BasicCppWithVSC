@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
-#include "Scheduler.h"
+#include "SynchEvent.h"
 #include "IEvent.h"
 
-class ReminderSchedluerEvent : public Scheduler, public IEvent
+class ReminderSchedluerEvent : public SynchEvent, public IEvent
 {
 public:
     ReminderSchedluerEvent(int p_schedule_cycle_time = def_schedule_cycle_time);

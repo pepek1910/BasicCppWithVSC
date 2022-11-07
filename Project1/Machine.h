@@ -32,7 +32,7 @@ private:
   EMachineState m_machine_state;
   IEvent* specificEvent = new SpecificAction{};
   IEvent* alarmEvent = new AlarmEvent{};
-  IEvent* clockSchedulerEvent = new ClockSchedulerEvent{clock_cycle_time};
+  IEvent* clockSchedulerEvent = new ClockSynchEvent{clock_cycle_time};
   IEvent* reminderSchedulerEvent = new ReminderSchedluerEvent{reminder_cycle_time};
 
 private:

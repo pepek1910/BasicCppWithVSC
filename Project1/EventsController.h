@@ -3,7 +3,7 @@
 #include "IEvent.h"
 #include "SpecificAction.h"
 #include "AlarmEvent.h"
-#include "ClockSchedulerEvent.h"
+#include "ClockSynchEvent.h"
 #include "ReminderSchedluerEvent.h"
 #include "Configuration.h"
 #include <vector>
