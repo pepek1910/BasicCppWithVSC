@@ -1,6 +1,6 @@
-#include "SpecificAction.h"
+#include "AsynchAction.h"
 
-void SpecificAction::Spin(void)
+void AsynchAction::Spin(void)
 {
   //SpecificActionSpinInner();
 
@@ -10,7 +10,7 @@ void SpecificAction::Spin(void)
   // SEvent v_event = eventsController.PopEvent();
   
   #if SERIAL_DEBUG_ON && SERIAL_DEBUG_CALIBRATION && (SERIAL_DEBUG_CALIBRATION >= 2)
-    Serial.println("SpecificAction # event");
+    Serial.println("AsynchAction # event");
   #endif
   Start();
 
@@ -45,30 +45,30 @@ void SpecificAction::Spin(void)
   // }
 }
 
-ESpecificActionState SpecificAction::GetState()
+EAsynchActionState AsynchAction::GetState()
 {
   return m_specific_action_state;
 }
 
-void SpecificAction::Start()
+void AsynchAction::Start()
 {
   //DEBUG_FUNCTION_START
   m_temp_variable = 0;
-  m_specific_action_state = ESpecificActionState::INITIALIZATION;
+  m_specific_action_state = EAsynchActionState::INITIALIZATION;
   std::cout<<"Start from Specific Action Event"<<std::endl;
   //DEBUG_FUNCTION_END
 }
 
-void SpecificAction::Stop()
+void AsynchAction::Stop()
 {
   //DEBUG_FUNCTION_START
   m_temp_variable = 0;
-  m_specific_action_state = ESpecificActionState::IDLE;
+  m_specific_action_state = EAsynchActionState::IDLE;
   //DEBUG_FUNCTION_END
 }
 
-void SpecificAction::print(std::ostream& os) const {
+void AsynchAction::print(std::ostream& os) const {
     os.precision(2);
     os << std::fixed;
-    os << "[SpecificAction-> type:" << int(EEventType::SPECIFIC_ACTION) << "param: " << m_param << "]";
+    os << "[AsynchAction-> type:" << int(EEventType::ASYNCH_ACTION) << "param: " << m_param << "]";
 }

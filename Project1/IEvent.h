@@ -3,7 +3,7 @@
 
 enum struct EEventType
 {
-  SPECIFIC_ACTION =0,
+  ASYNCH_ACTION =0,
   ALARM,
   SCHEDULER,
   EVENTS_COUNT
