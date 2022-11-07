@@ -1,7 +1,7 @@
 #include "ClockSchedulerEvent.h"
 
-ClockSchedulerEvent::ClockSchedulerEvent(int m_schedule_cycle_time)
-    :Scheduler(m_schedule_cycle_time), IEvent(EEventType::SCHEDULER,0,0)
+ClockSchedulerEvent::ClockSchedulerEvent(int m_task_cycle_time)
+    :SynchroTask(m_task_cycle_time), AsynchroTask(EEventType::SCHEDULER,0,0)
 {}
 
 void ClockSchedulerEvent::Spin()

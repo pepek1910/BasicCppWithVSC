@@ -72,7 +72,7 @@ void Machine::machineSpin()
     else if (m_machine_state == EMachineState::PRE_RUNNING)
     {
         std::cout<<"PRE RUNNING"<<std::endl;
-        IEvent* alarmEvent2 = new AlarmEvent{};   //TODO EventsController should be just controller not create and store Events/Scheduler. It should be higher in hierarchy
+        AsynchroTask* alarmEvent2 = new AlarmEvent{};   //TODO EventsController should be just controller not create and store Events/Scheduler. It should be higher in hierarchy
         m_events.eventsTest.push_back(alarmEvent2);
         MachineSetState(EMachineState::RUNNING);
     }
@@ -80,7 +80,7 @@ void Machine::machineSpin()
     {
         std::cout<<"RUNNING"<<std::endl;
         m_events.PeekCurrentEventType(&m_events.eventsTest);
-        m_events.checkScheduleToRun(&m_events.scheduledAction);
+        m_events.checkScheduleToRun(&m_events.scheduledAction); //TODO add currentState to parameters
    }
 }
 

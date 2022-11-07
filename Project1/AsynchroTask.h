@@ -9,17 +9,17 @@ enum struct EEventType
   EVENTS_COUNT
 };
 
-class IEvent
+class AsynchroTask
 {
-  friend std::ostream &operator<<(std::ostream &os, const IEvent &obj);
+  friend std::ostream &operator<<(std::ostream &os, const AsynchroTask &obj);
 public:
-  IEvent(EEventType p_type = def_type, int16_t p_param = def_param, int16_t p_param2 = def_param2)
+  AsynchroTask(EEventType p_type = def_type, int16_t p_param = def_param, int16_t p_param2 = def_param2)
   {
     m_type = p_type;
     m_param = p_param;
     m_param2 = p_param2;
   }
-  virtual ~IEvent()=default;
+  virtual ~AsynchroTask()=default;
 
   virtual void Spin()=0;
   virtual void print(std::ostream& os) const = 0;

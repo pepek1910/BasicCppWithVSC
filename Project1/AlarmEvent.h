@@ -1,13 +1,13 @@
 #pragma once
 #include <iostream>
 #include "Configuration.h"
-#include "IEvent.h"
+#include "AsynchroTask.h"
 
-class AlarmEvent :public IEvent
+class AlarmEvent :public AsynchroTask
 {
 public:
   AlarmEvent()
-    :IEvent{def_event_type, def_param, def_param2}{
+    :AsynchroTask{def_event_type, def_param, def_param2}{
     };
   ~AlarmEvent() = default;
 
