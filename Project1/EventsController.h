@@ -15,12 +15,12 @@ public:
   ~EventsController();
 
   void PushEvent(std::vector <IEvent*> *p_vector, IEvent *p_event);
-  EEventType PeekCurrentEventType(std::vector <IEvent*> *p_vector);
+  EEventType PeekCurrentAsynchEventType(std::vector <IEvent*> *p_vector);
   void PopEvent(std::vector <IEvent*> *p_vector);
-  void checkScheduleToRun(std::vector <IEvent*> *p_vector);
+  void checkSynchEvents(std::vector <IEvent*> *p_vector);
 
-  std::vector <IEvent*> eventsTest;
-  std::vector <IEvent*> scheduledAction;
+  std::vector <IEvent*> asynchronousEvents;
+  std::vector <IEvent*> synchronousEvents;
   
 private:
   std::string GetEventName(EEventType p_event_type);

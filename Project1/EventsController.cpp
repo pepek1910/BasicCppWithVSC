@@ -7,7 +7,7 @@ EventsController::EventsController()
     std::cout<<"events # EventsController Initialization START"<<std::endl; //Serial.println("events # EventsInit() START");
   #endif
   
-  if (eventsTest.size() != (uint8_t)EEventType::EVENTS_COUNT)
+  if (asynchronousEvents.size() != (uint8_t)EEventType::EVENTS_COUNT)
   {
     #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
     std::cout<<"events # EventsController Initialization ERROR wrong number of m_event_type_strings!!!"<<std::endl; //Serial.println("events # EventsInit() ERROR wrong number of m_event_type_strings!!!");
@@ -25,7 +25,7 @@ EventsController::~EventsController(){
   // delete schedulerEvent;
 }
 
-EEventType EventsController::PeekCurrentEventType(std::vector <IEvent*> *p_vector)
+EEventType EventsController::PeekCurrentAsynchEventType(std::vector <IEvent*> *p_vector)
 {
   if (p_vector->size() == 0)
   {
@@ -71,7 +71,7 @@ void EventsController::DisplayMessage(std::vector <IEvent*> *p_vector, IEvent * 
   #endif
 }
 
-void EventsController::checkScheduleToRun(std::vector <IEvent*> *p_vector)
+void EventsController::checkSynchEvents(std::vector <IEvent*> *p_vector)
 {
     for(size_t i =0; i<p_vector->size(); i++){
         p_vector->at(i)->Spin();

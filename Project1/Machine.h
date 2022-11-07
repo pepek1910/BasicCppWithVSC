@@ -27,9 +27,10 @@ private:
   void MachineSetState(EMachineState p_state);
   EMachineState MachineGetState(void);
 
+  EMachineState m_machine_state;
   std::string m_machine_state_strings[(uint8_t)EMachineState::STATES_COUNT];
   EventsController m_events{};
-  EMachineState m_machine_state;
+
   IEvent* specificEvent = new SpecificAction{};
   IEvent* alarmEvent = new AlarmEvent{};
   IEvent* clockSchedulerEvent = new ClockSynchEvent{clock_cycle_time};
