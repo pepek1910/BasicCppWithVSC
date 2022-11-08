@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "EventsController.h"
+#include "MachineStateController.h"
 //#include "AsynchAction.h"
 
 enum struct EMachineState : uint8_t //TODO
@@ -23,11 +24,7 @@ public:
   ~Machine();
   void machineSpin();
 private:
-   
-    void MachineSetState(EMachineState p_state);
-    EMachineState MachineGetState(void);
-
-    EMachineState m_machine_state;
+    MachineStateController machineStateController{};
     //uint32_t g_current_millis = millis();
     std::string m_machine_state_strings[(uint8_t)EMachineState::STATES_COUNT];
     EventsController m_events{};

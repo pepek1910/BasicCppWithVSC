@@ -1,6 +1,7 @@
 #include "Machine.h"
 
-Machine::Machine(){
+Machine::Machine()
+{
     #if SERIAL_DEBUG_ON && SERIAL_DEBUG_MACHINE
         std::cout<<"machine # MachineInit() START"<<std::endl;
     #endif
@@ -26,14 +27,9 @@ Machine::Machine(){
         std::cout<<"machine # MachineInit() ERROR wrong number of m_machine_state_strings!!!"<<std::endl;
         #endif
     }
- 
-    m_machine_state = EMachineState::INITIALIZATION;
-
     #if SERIAL_DEBUG_ON && SERIAL_DEBUG_MACHINE
         std::cout<<"machine # MachineInit() END"<<std::endl;
     #endif
-
-    MachineSetState(EMachineState::INITIALIZATION_DONE);
 }
 
 Machine::~Machine(){
@@ -41,67 +37,66 @@ Machine::~Machine(){
     delete clockSchedulerEvent;
     delete reminderSchedulerEvent;
 }
+
 void Machine::machineSpin()
 {
     std::cout<< "Machine Spin"<<std::endl;
-    if (m_machine_state == EMachineState::INITIALIZATION_DONE)
+    auto v_actState = machineStateController.GetState();
+    switch(v_actState)
     {
-        #if BEGIN_WITH_SPECIFIC_ACTION == 0
-            #if SPECIFIC_ACTION
-                MachineSetState(EMachineState::SPECIFIC_ACTION);
-                m_events.PushEvent(SEvent(EEventType::SPECIFIC_ACTION, 1));
-            #else
-                MachineSetState(EMachineState::PRE_RUNNING);
-            #endif
-        #else
-            if (m_events.PeekCurrentEventType() != m_events.EEventType::EVENTS_COUNT)
-            {
-                SEvent v_event = PopEvent();
-                if (v_event.m_type == EEventType::SPECIFIC_ACTION)
-                {
-                #if SPECIFIC_ACTION
-                    MachineSetState(EMachineState::SPECIFIC_ACTION);
-                    PushEvent(SEvent(EEventType::SPECIFIC_ACTION, 1));
-                #else
-                    MachineSetState(EMachineState::PRE_RUNNING);
-                #endif
-                }
-            }
-        #endif
+        case MachineStateEnum::INITIALIZATION:
+        {
+            std::cout<<"State: INITIALIZATION"<<std::endl;
+            IEvent* alarmEvent2 = new AlarmEvent{};   //TODO EventsController should be just controller not create and store Events/Scheduler. It should be higher in hierarchy
+            m_events.asynchronousEvents.push_back(alarmEvent2);
+            machineStateController.trySetState(MachineStateEnum::READY);
+            break;
+        }
+        case MachineStateEnum::READY:
+        {
+            std::cout<<"State: READY"<<std::endl;
+            machineStateController.trySetState(MachineStateEnum::RUNNING);
+            // #if BEGIN_WITH_SPECIFIC_ACTION == 0
+            //     #if SPECIFIC_ACTION
+            //         MachineSetState(EMachineState::SPECIFIC_ACTION);
+            //         m_events.PushEvent(SEvent(EEventType::SPECIFIC_ACTION, 1));
+            //     #else
+            //         machineStateController.trySetState(MachineStateEnum::READY);
+            //     #endif
+            // #else
+            //     if (m_events.PeekCurrentEventType() != m_events.EEventType::EVENTS_COUNT)
+            //     {
+            //         SEvent v_event = PopEvent();
+            //         if (v_event.m_type == EEventType::SPECIFIC_ACTION)
+            //         {
+            //         #if SPECIFIC_ACTION
+            //             MachineSetState(EMachineState::SPECIFIC_ACTION);
+            //             PushEvent(SEvent(EEventType::SPECIFIC_ACTION, 1));
+            //         #else
+            //             MachineSetState(EMachineState::PRE_RUNNING);
+            //         #endif
+            //         }
+            //     }
+            // #endif
+            break;
+        }
+        case RUNNING:
+        {
+            std::cout<<"State: RUNNING"<<std::endl;
+            m_events.PeekCurrentAsynchEventType(&m_events.asynchronousEvents);
+            m_events.checkSynchEvents(&m_events.synchronousEvents);
+            break;
+        }
+        case (ERROR):
+        {
+            std::cout<<"State: ERROR"<<std::endl;
+            break;
+        }
+        case MachineStateEnum::MACHINE_STATE_ENUM_GUARD:
+        {
+            std::cout<<"State: MACHINE_STATE_ENUM_GUARD"<<std::endl;\
+            break;
+        }
     }
-    else if (m_machine_state == EMachineState::PRE_RUNNING)
-    {
-        std::cout<<"PRE RUNNING"<<std::endl;
-        IEvent* alarmEvent2 = new AlarmEvent{};   //TODO EventsController should be just controller not create and store Events/Scheduler. It should be higher in hierarchy
-        m_events.asynchronousEvents.push_back(alarmEvent2);
-        MachineSetState(EMachineState::RUNNING);
-    }
-    else if (m_machine_state == EMachineState::RUNNING)
-    {
-        std::cout<<"RUNNING"<<std::endl;
-        m_events.PeekCurrentAsynchEventType(&m_events.asynchronousEvents);
-        m_events.checkSynchEvents(&m_events.synchronousEvents);
-   }
 }
 
-void Machine::MachineSetState(EMachineState p_state)
-{
-  m_machine_state = p_state;
-
-  #if SERIAL_DEBUG_ON && SERIAL_DEBUG_MACHINE 
-    std::cout<<"machine # MachineSetState()=";
-    if (m_machine_state_strings[(uint8_t)p_state] == "")
-    {
-      std::cout<<"???"<<std::endl;
-    }
-    else
-    {
-      std::cout<<(m_machine_state_strings[(uint8_t)p_state])<<std::endl;
-    }
-  #endif
-}
-
-EMachineState Machine::MachineGetState(void)
-{
-  return m_machine_state;
-}
