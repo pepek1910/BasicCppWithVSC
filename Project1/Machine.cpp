@@ -10,46 +10,26 @@ Machine::Machine()
 
     m_events.PushEvent(&m_events.synchronousEvents , clockSchedulerEvent);
     m_events.PushEvent(&m_events.synchronousEvents , reminderSchedulerEvent);
-
-    uint8_t i = 0;
-    m_machine_state_strings[i++] = "UNKNOWN";
-    m_machine_state_strings[i++] = "INITIALIZATION";
-    m_machine_state_strings[i++] = "INITIALIZATION_DONE";
-    m_machine_state_strings[i++] = "CALIBRATION";
-    m_machine_state_strings[i++] = "CALIBRATION_DONE";
-    m_machine_state_strings[i++] = "PRE_RUNNING";
-    m_machine_state_strings[i++] = "RUNNING";
-    m_machine_state_strings[i++] = "ERROR";
-
-    if (i != (uint8_t)EMachineState::STATES_COUNT)
-    {
-        #if SERIAL_DEBUG_ON && SERIAL_DEBUG_MACHINE
-        std::cout<<"machine # MachineInit() ERROR wrong number of m_machine_state_strings!!!"<<std::endl;
-        #endif
-    }
-    #if SERIAL_DEBUG_ON && SERIAL_DEBUG_MACHINE
-        std::cout<<"machine # MachineInit() END"<<std::endl;
-    #endif
 }
 
 Machine::~Machine(){
     std::cout<<"Machine Deconstructor"<<std::endl;
+    delete specificEvent;
+    delete alarmEvent;
     delete clockSchedulerEvent;
     delete reminderSchedulerEvent;
 }
 
-void Machine::machineSpin()
+void Machine::Control()
 {
-    std::cout<< "Machine Spin"<<std::endl;
+    std::cout<< "Machine Control"<<std::endl;
     auto v_actState = machineStateController.GetState();
     switch(v_actState)
     {
         case MachineStateEnum::INITIALIZATION:
         {
             std::cout<<"State: INITIALIZATION"<<std::endl;
-            IEvent* alarmEvent2 = new AlarmEvent{};   //TODO EventsController should be just controller not create and store Events/Scheduler. It should be higher in hierarchy
-            m_events.asynchronousEvents.push_back(alarmEvent2);
-            machineStateController.trySetState(MachineStateEnum::READY);
+            Init();
             break;
         }
         case MachineStateEnum::READY:
@@ -85,6 +65,7 @@ void Machine::machineSpin()
             std::cout<<"State: RUNNING"<<std::endl;
             m_events.PeekCurrentAsynchEventType(&m_events.asynchronousEvents);
             m_events.checkSynchEvents(&m_events.synchronousEvents);
+            //TODO need a way to not just Spin single cycle on Event, but stay in Event unless some action will be finished
             break;
         }
         case (ERROR):
@@ -100,3 +81,9 @@ void Machine::machineSpin()
     }
 }
 
+void Machine::Init()
+{
+    IEvent* alarmEvent2 = new AlarmEvent{};
+    m_events.asynchronousEvents.push_back(alarmEvent2);
+    machineStateController.trySetState(MachineStateEnum::READY);
+}

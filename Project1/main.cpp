@@ -5,7 +5,7 @@ int main()
 {
     Machine machine{};
     while(true){
-        machine.machineSpin();
+        machine.Control();
     }
     return 0;
 }
