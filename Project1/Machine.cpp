@@ -23,19 +23,20 @@ Machine::~Machine(){
 void Machine::Control()
 {
     std::cout<< "Machine Control"<<std::endl;
-    auto v_actState = machineStateController.GetState();
+    auto v_actState = stateController.GetState();
     switch(v_actState)
     {
         case MachineStateEnum::INITIALIZATION:
         {
             std::cout<<"State: INITIALIZATION"<<std::endl;
             Init();
+            //TODO pointer to  ErrorChecker.Start_error_checking(); or get directly into;
             break;
         }
         case MachineStateEnum::READY:
         {
             std::cout<<"State: READY"<<std::endl;
-            machineStateController.trySetState(MachineStateEnum::RUNNING);
+            stateController.trySetState(MachineStateEnum::RUNNING);
             // #if BEGIN_WITH_SPECIFIC_ACTION == 0
             //     #if SPECIFIC_ACTION
             //         MachineSetState(EMachineState::SPECIFIC_ACTION);
@@ -60,7 +61,7 @@ void Machine::Control()
             // #endif
             break;
         }
-        case RUNNING:
+        case MachineStateEnum::RUNNING:
         {
             std::cout<<"State: RUNNING"<<std::endl;
             m_events.PeekCurrentAsynchEventType(&m_events.asynchronousEvents);
@@ -68,9 +69,21 @@ void Machine::Control()
             //TODO need a way to not just Spin single cycle on Event, but stay in Event unless some action will be finished
             break;
         }
-        case (ERROR):
+        case MachineStateEnum::ERROR:
         {
             std::cout<<"State: ERROR"<<std::endl;
+            resetController.Control();
+            break;
+        }
+        case MachineStateEnum::RESETTING:
+        {
+            std::cout<<"State: RESETTING"<<std::endl;
+            Reset();
+            break;
+        }
+        case MachineStateEnum::FATAL_ERROR:
+        {
+            std::cout<<"State: FATAL_ERROR"<<std::endl;\
             break;
         }
         case MachineStateEnum::MACHINE_STATE_ENUM_GUARD:
@@ -81,9 +94,22 @@ void Machine::Control()
     }
 }
 
+void Machine::Reset()
+{
+    switch(m_resetState){
+        case 1:
+        {
+            //reset all variables;
+        }
+        case 0:
+        {
+            stateController.trySetState(MachineStateEnum::READY);
+        }
+    }
+}
 void Machine::Init()
 {
     IEvent* alarmEvent2 = new AlarmEvent{};
     m_events.asynchronousEvents.push_back(alarmEvent2);
-    machineStateController.trySetState(MachineStateEnum::READY);
+    stateController.trySetState(MachineStateEnum::READY);
 }

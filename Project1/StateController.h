@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <list>
 
@@ -7,16 +8,19 @@ enum MachineStateEnum
     READY,
     RUNNING,
     ERROR,
+    RESETTING,
+    FATAL_ERROR,
     MACHINE_STATE_ENUM_GUARD
 };
-class MachineStateController
+
+class StateController
 {
 public:
-    MachineStateController();
-    ~MachineStateController()=default;
+    StateController();
+    ~StateController()=default;
 
     bool trySetState(MachineStateEnum p_machineState);
     MachineStateEnum GetState();
     MachineStateEnum m_machineState{MachineStateEnum::INITIALIZATION};
-    bool m_allowedTransitions[MACHINE_STATE_ENUM_GUARD][MACHINE_STATE_ENUM_GUARD];
+    bool m_allowedTransitions[MachineStateEnum::MACHINE_STATE_ENUM_GUARD][MachineStateEnum::MACHINE_STATE_ENUM_GUARD];
 };

@@ -71,5 +71,6 @@
     "**/.vscode",
     "**/.vscode/**"
   ],
-  "C_Cpp_Runner.cppStandard": "gnu++17"
+  "C_Cpp_Runner.cppStandard": "gnu++17",
+  "C_Cpp.errorSquiggles": "Disabled"
 }

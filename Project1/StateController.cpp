@@ -1,10 +1,9 @@
-#include "MachineStateController.h"
-#define stringify( name ) #name
+#include "StateController.h"
 
-MachineStateController::MachineStateController(){
+StateController::StateController(){
     std::cout<<"Allowed Transition initialization"<<std::endl;
-    for(int i =0; i<MACHINE_STATE_ENUM_GUARD; i++){
-        for(int j=0; j<MACHINE_STATE_ENUM_GUARD; j++){
+    for(int i =0; i<MachineStateEnum::MACHINE_STATE_ENUM_GUARD; i++){
+        for(int j=0; j<MachineStateEnum::MACHINE_STATE_ENUM_GUARD; j++){
             m_allowedTransitions[i][j] = false;
         }
     }
@@ -13,12 +12,16 @@ MachineStateController::MachineStateController(){
     m_allowedTransitions[MachineStateEnum::READY][MachineStateEnum::ERROR]=true;
     m_allowedTransitions[MachineStateEnum::READY][MachineStateEnum::RUNNING]=true;
     m_allowedTransitions[MachineStateEnum::RUNNING][MachineStateEnum::ERROR]=true;
+    m_allowedTransitions[MachineStateEnum::ERROR][MachineStateEnum::RESETTING]=true;
+    m_allowedTransitions[MachineStateEnum::RESETTING][MachineStateEnum::INITIALIZATION]=true;
+    
 }
-bool MachineStateController::trySetState(MachineStateEnum p_state)
+
+bool StateController::trySetState(MachineStateEnum p_state)
 {
     auto v_actState = GetState();
     if(m_allowedTransitions[v_actState][p_state]==true){
-        std::cout<<"State Set "<<std::to_string(p_state)<<std::endl;
+        std::cout<<"State Set "<<(p_state)<<std::endl;
         m_machineState = p_state;
         return true;
         // #if SERIAL_DEBUG_ON && SERIAL_DEBUG_MACHINE 
@@ -34,13 +37,13 @@ bool MachineStateController::trySetState(MachineStateEnum p_state)
         // #endif    
     }
     else{
-        std::cout<<"Unable to State Set "<<std::to_string(p_state)<<std::endl;
-        trySetState(MachineStateEnum::ERROR);
+        std::cout<<"Unable to State Set "<<(p_state)<<std::endl;
+        trySetState(MachineStateEnum::FATAL_ERROR);
         return false;
     }
 }
 
-MachineStateEnum MachineStateController:: GetState(void)
+MachineStateEnum StateController::GetState(void)
 {
   return m_machineState;
 }
