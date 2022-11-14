@@ -1,9 +1,10 @@
 #include "ErrorHandlingComponent.h"
+#include "IBaseComponent.h"
 
-class TestObject : public ErrorHandlingComponent
+class TestObject : public ErrorHandlingComponent, public IBaseComponent
 {
 public:
-    TestObject(ErrorChecker* p_error_Checker);
+    TestObject(ErrorChecker* p_error_Checker, std::string p_name);
     ~TestObject()=default;
 
     void Control();

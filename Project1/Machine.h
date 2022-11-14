@@ -24,7 +24,7 @@ private:
   IEvent* alarmEvent = new AlarmEvent{};
   IEvent* clockSchedulerEvent = new ClockSynchEvent{clock_cycle_time};
   IEvent* reminderSchedulerEvent = new ReminderSchedluerEvent{reminder_cycle_time};
-  TestObject m_test_object{m_error_checker};
+  TestObject m_test_object{m_error_checker, "Test Object"};
 
   uint8_t m_resetState{0};
 private:

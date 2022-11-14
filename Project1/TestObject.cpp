@@ -1,7 +1,7 @@
 #include "TestObject.h"
 
-TestObject::TestObject(ErrorChecker* p_error_Checker)
-    :ErrorHandlingComponent(p_error_Checker)
+TestObject::TestObject(ErrorChecker* p_error_Checker, std::string p_name)
+    :ErrorHandlingComponent(p_error_Checker), IBaseComponent(p_name)
     {}
 
 void TestObject::Control()
@@ -16,5 +16,5 @@ void TestObject::Control()
 void TestObject::OnError()
 {
     m_on_error_actions_finished = true;
-    std::cout<< "Error From TestObject" <<std::endl;
+    std::cout<< "Error From: " << IBaseComponent::GetName() <<std::endl;
 }
