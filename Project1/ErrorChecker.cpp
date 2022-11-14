@@ -1,12 +1,14 @@
 #include "ErrorChecker.h"
 
 //ErrorChecker::ErrorChecker(StateController* p_machine_state_controller_pointer): m_machine_state_controller_pointer{p_machine_state_controller_pointer}{};
-
+void ErrorChecker::SetStateController(StateController* p_machine_state_controller_ref)
+{
+    m_machine_state_controller_ref = p_machine_state_controller_ref;
+}
 void ErrorChecker::Check(){
     if (m_block_checking_error)
         //return 0;
         return;
-
     for(size_t i =0; i<m_vector_error_handling_components.size(); i++){
         auto v_error = m_vector_error_handling_components.at(i)->GetError();
         if (v_error.m_code != ErrorEnum::OK)
@@ -18,13 +20,23 @@ void ErrorChecker::Check(){
             }
             // ADSLOGSTR(ADSLOG_MSGTYPE_WARN, '%s', CONCAT(m_error_handling_components[v_i]^.Get_name(),TO_STRING(v_error.m_code)));
 		    // m_error_handling_components[v_i]^.Reset_error();	//zerowanie błędu
+            m_vector_error_handling_components.at(i)->ResetError();
         }
     }
     bool v_all_actions_finished{false};
     if (m_error_on_component)
     {
+        if(!set_error_only_once)
+        {
+            set_error_only_once = true;
+            if (!m_machine_state_controller_ref->trySetState(MachineStateEnum::ERROR))
+            {
+                m_machine_state_controller_ref->trySetState(MachineStateEnum::FATAL_ERROR);
+            }
+        }
         if (!m_first_error_occured)
         {
+            set_error_only_once = true;
             m_first_error_occured = true;
             m_error_on_component = false;
             m_machine_error_handling_finished = true;
@@ -40,6 +52,7 @@ void ErrorChecker::Check(){
         }
         if (v_all_actions_finished)
         {
+            set_error_only_once = false;
             m_machine_error_handling_finished = true;
             m_error_on_component = false;
             // for(size_t i =0; i<m_vector_error_handling_components->size(); i++){

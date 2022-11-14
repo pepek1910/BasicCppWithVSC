@@ -11,23 +11,26 @@ public:
     //ErrorChecker(StateController* p_machine_state_controller_pointer);
     ~ErrorChecker()=default;
     std::vector<ErrorHandlingComponent*> m_vector_error_handling_components;
+    void SetStateController(StateController* p_machine_state_controller_ref);
     void RegisterComponent(ErrorHandlingComponent*);
     void UnRegisterComponent(ErrorHandlingComponent*);
+    void Check();
     
 private:
-    void Check();
     void ClearErrorHandlingComponents();
-    //void SetMachineState(StateController* p_machine_state_controller_pointer);
+    //void SetMachineState(StateController* p_machine_state_controller_pointer); To set Fatal Error is it neccesairy?
     void StartErrorChecking();
     void UnRegisterAll();
     //Unregister_redundant_components chyba nie potrzebne bo zrobimy dynamicznie
 
-    bool m_block_checking_error{true};
+    bool m_block_checking_error{false};
     bool m_error_on_component{false};
     bool m_machine_error_handling_finished{true};
     bool m_set_error_state_trigger{false};
     bool m_first_error_occured{false};
-    const static int16_t max_component_count = 1000;
+    StateController* m_machine_state_controller_ref{};
+    bool set_error_only_once{false};
+
 };
 
 

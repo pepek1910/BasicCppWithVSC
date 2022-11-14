@@ -1,10 +1,11 @@
 #include "Machine.h"
 
-Machine::Machine()
+Machine::Machine(ErrorChecker* p_error_checker): m_error_checker{p_error_checker}
 {
     #if SERIAL_DEBUG_ON && SERIAL_DEBUG_MACHINE
         std::cout<<"machine # MachineInit() START"<<std::endl;
     #endif
+    m_error_checker->SetStateController(&stateController);
     m_events.PushEvent(&m_events.asynchronousEvents , specificEvent);
     m_events.PushEvent(&m_events.asynchronousEvents , alarmEvent);
 
@@ -66,6 +67,7 @@ void Machine::Control()
             std::cout<<"State: RUNNING"<<std::endl;
             m_events.PeekCurrentAsynchEventType(&m_events.asynchronousEvents);
             m_events.checkSynchEvents(&m_events.synchronousEvents);
+            m_test_object.Control();
             //TODO need a way to not just Spin single cycle on Event, but stay in Event unless some action will be finished
             break;
         }
