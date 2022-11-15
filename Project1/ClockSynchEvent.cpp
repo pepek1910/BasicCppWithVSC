@@ -6,13 +6,18 @@ ClockSynchEvent::ClockSynchEvent(int m_schedule_cycle_time)
 
 void ClockSynchEvent::Spin()
 {
-    std::cout << "[ClockSynchEvent-> type:" << int(EEventType::SCHEDULER) << " cycle time: " << getCycleTime() << "]";
-
+    #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
+        std::cout << "[ClockSynchEvent-> type:" << int(EEventType::SCHEDULER) << " cycle time: " << getCycleTime() << "]";
+    #endif
     if (checkCycleTime()){
-        std::cout<< " -> ALARM" <<std::endl;
+        #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
+            std::cout<< " -> ALARM" <<std::endl;
+        #endif
     }
     else {
-        std::cout<< " -> Tick Tack" <<std::endl;
+        #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
+            std::cout<< " -> Tick Tack" <<std::endl;
+        #endif
     }
 
 }

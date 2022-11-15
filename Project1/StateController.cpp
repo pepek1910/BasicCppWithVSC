@@ -1,7 +1,9 @@
 #include "StateController.h"
 
 StateController::StateController(){
-    std::cout<<"Allowed Transition initialization"<<std::endl;
+    #if SERIAL_DEBUG_ON
+        std::cout<<"Allowed Transition initialization"<<std::endl;
+    #endif
     for(int i =0; i<MachineStateEnum::MACHINE_STATE_ENUM_GUARD; i++){
         for(int j=0; j<MachineStateEnum::MACHINE_STATE_ENUM_GUARD; j++){
             m_allowedTransitions[i][j] = false;

@@ -8,7 +8,7 @@ public:
     ~TestObject()=default;
 
     void Control();
-     virtual void OnError() override;
+    virtual void OnError() override;
 
     int counter{0};
 };

@@ -8,8 +8,7 @@ class ErrorChecker
 {
 public:
     ErrorChecker()=default;
-    //ErrorChecker(StateController* p_machine_state_controller_pointer);
-    ~ErrorChecker()=default;
+    virtual ~ErrorChecker()=default;
     std::vector<ErrorHandlingComponent*> m_vector_error_handling_components;
     void SetStateController(StateController* p_machine_state_controller_ref);
     void RegisterComponent(ErrorHandlingComponent*);

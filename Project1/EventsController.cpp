@@ -7,13 +7,6 @@ EventsController::EventsController()
     std::cout<<"events # EventsController Initialization START"<<std::endl; //Serial.println("events # EventsInit() START");
   #endif
   
-  if (asynchronousEvents.size() != (uint8_t)EEventType::EVENTS_COUNT)
-  {
-    #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
-    std::cout<<"events # EventsController Initialization ERROR wrong number of m_event_type_strings!!!"<<std::endl; //Serial.println("events # EventsInit() ERROR wrong number of m_event_type_strings!!!");
-    #endif
-  }
-  
   #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
     std::cout<<"events # EventsController Initialization END"<<std::endl;//    Serial.println("events # EventsInit() END");
   #endif

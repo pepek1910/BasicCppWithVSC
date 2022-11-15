@@ -1,7 +1,10 @@
 #include "AlarmEvent.h"
 
 void AlarmEvent::Spin(){
-    std::cout<< "Spin from AlarmEvent" <<std::endl;
+    #if SERIAL_DEBUG_ON && SERIAL_DEBUG_EVENTS
+        std::cout<< "Spin from AlarmEvent" <<std::endl;
+    #endif
+
 }
 
 void AlarmEvent::print(std::ostream& os) const {

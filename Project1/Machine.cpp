@@ -19,6 +19,7 @@ Machine::~Machine(){
     delete alarmEvent;
     delete clockSchedulerEvent;
     delete reminderSchedulerEvent;
+    delete m_test_object;
 }
 
 void Machine::Control()
@@ -67,7 +68,7 @@ void Machine::Control()
             std::cout<<"State: RUNNING"<<std::endl;
             m_events.PeekCurrentAsynchEventType(&m_events.asynchronousEvents);
             m_events.checkSynchEvents(&m_events.synchronousEvents);
-            m_test_object.Control();
+            m_test_object->Control();
             //TODO need a way to not just Spin single cycle on Event, but stay in Event unless some action will be finished
             break;
         }

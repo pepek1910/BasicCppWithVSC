@@ -27,8 +27,4 @@ public:
     bool m_on_error_actions_finished;
     ErrorType m_error;//{ErrorEnum::OK, ErrorPriorityEnum::DEBUG};
     ErrorChecker* error_Checker;
-	//m_error	: Error := (m_code := ErrorCodeEnum.OK, m_priority := ErrorPriorityEnum.DEBUG);
-
-// private:
-//     static constexpr int def_error_checker_pointer = NULL;
 };

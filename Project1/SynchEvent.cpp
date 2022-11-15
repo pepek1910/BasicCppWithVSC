@@ -4,7 +4,9 @@ SynchEvent::SynchEvent(int p_schedule_cycle_time = def_event_cycle_time_in_secon
 {
     m_event_cycle_time = p_schedule_cycle_time;
     m_time = getTime();
-    std::cout<< "Time from SchedulerConstructor: "<< m_time<<std::endl;
+    #if SERIAL_DEBUG_ON
+        std::cout<< "Time from SchedulerConstructor: "<< m_time<<std::endl;
+    #endif
     printTime();
 }
 void SynchEvent::printTime(){
@@ -33,8 +35,8 @@ bool SynchEvent::checkCycleTime()
             <<" cycle time: "<<  m_event_cycle_time
             << " act time: " <<v_act_time 
         <<std::endl;
+        std::cout<<" time left: "<< m_event_cycle_time-time_passed<<std::endl;
     #endif
-    std::cout<<" time left: "<< m_event_cycle_time-time_passed<<std::endl;
     if (time_passed > m_event_cycle_time){
         //std::cout<< "Time To do Sth"<<std::endl;  
         m_time = getTime();

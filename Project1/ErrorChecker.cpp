@@ -1,6 +1,5 @@
 #include "ErrorChecker.h"
 
-//ErrorChecker::ErrorChecker(StateController* p_machine_state_controller_pointer): m_machine_state_controller_pointer{p_machine_state_controller_pointer}{};
 void ErrorChecker::SetStateController(StateController* p_machine_state_controller_ref)
 {
     m_machine_state_controller_ref = p_machine_state_controller_ref;
