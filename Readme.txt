@@ -1,4 +1,4 @@
-Base Machine Project
+Base Machine Project in VSCode in C++ (without GoogleTests)
 -with Initialization and Spid architecture
 
 Configuration
